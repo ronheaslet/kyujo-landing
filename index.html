@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyujo — Rescue When It Matters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:   #0d0c0a;
+      --paper: #f4efe4;
+      --gold:  #c8993a;
+      --red:   #8b1a1a;
+      --mist:  #cec8b2;
+      --smoke: #6b6258;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.035; pointer-events: none; z-index: 999;
+    }
+
+    .page { max-width: 1140px; margin: 0 auto; padding: 0 64px; }
+
+    header {
+      display: flex; justify-content: center; align-items: center;
+      padding: 44px 0 0;
+      opacity: 0; animation: up 0.9s ease 0.1s forwards;
+    }
+    .hdr-left { font-family: 'Noto Serif JP', serif; font-size: 0.72rem; letter-spacing: 0.3em; color: var(--smoke); }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 78vh;
+      padding: 60px 0 40px;
+    }
+
+    .name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(80px, 9vw, 136px);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      text-align: center;
+      opacity: 0; animation: up 1s ease 0.3s forwards;
+    }
+    .name-en em { font-style: italic; color: var(--red); }
+
+    .name-row {
+      display: flex; align-items: baseline; gap: 18px; margin-top: 14px;
+      justify-content: center;
+      opacity: 0; animation: up 1s ease 0.5s forwards;
+    }
+    .name-jp { font-family: 'Noto Serif JP', serif; font-weight: 400; font-size: clamp(32px, 4vw, 56px); color: var(--smoke); letter-spacing: 0.08em; }
+    .romaji { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.35em; color: var(--mist); text-transform: uppercase; }
+
+    .etym { margin-top: 52px; opacity: 0; animation: up 1s ease 0.75s forwards; display: flex; flex-direction: column; align-items: center; }
+    .etym-rule { width: 40px; height: 1px; background: var(--gold); margin-bottom: 24px; }
+    .etym-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+
+    .kanji-pair { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 28px; justify-content: center; }
+    .kanji-card { display: flex; gap: 14px; align-items: flex-start; }
+    .kanji-glyph { font-family: 'Noto Serif JP', serif; font-weight: 700; font-size: 44px; line-height: 1; color: var(--ink); flex-shrink: 0; }
+    .kanji-meta { padding-top: 4px; text-align: left; }
+    .kanji-rom { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
+    .kanji-def { font-size: 0.95rem; font-weight: 300; color: var(--smoke); line-height: 1.5; }
+    .kanji-sub { font-size: 0.76rem; font-style: italic; color: var(--mist); margin-top: 3px; }
+    .etym-plus { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--mist); padding-top: 8px; align-self: flex-start; }
+
+    .def-full {
+      font-size: clamp(16px, 1.7vw, 21px);
+      font-weight: 300; line-height: 1.65; color: var(--smoke);
+      border-left: 2px solid var(--red); padding-left: 20px;
+      max-width: 540px; text-align: left;
+    }
+    .def-full em { font-style: italic; color: var(--ink); }
+
+    @keyframes up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    @media (max-width: 768px) {
+      .page { padding: 0 28px; }
+      .hero { padding: 48px 0 32px; min-height: auto; }
+      .kanji-pair { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <span class="hdr-left">救助 · Kyujo</span>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="name-en">Kyu<em>jo</em></h1>
+
+      <div class="name-row">
+        <span class="name-jp">救助</span>
+        <span class="romaji">kyū · jo</span>
+      </div>
+
+      <div class="etym">
+        <div class="etym-rule"></div>
+        <div class="etym-tag">noun · Japanese</div>
+
+        <div class="kanji-pair">
+          <div class="kanji-card">
+            <span class="kanji-glyph">救</span>
+            <div class="kanji-meta">
+              <div class="kanji-rom">kyū</div>
+              <div class="kanji-def">to save · to rescue<br>to deliver from harm</div>
+              <div class="kanji-sub">actively going to get someone out</div>
+            </div>
+          </div>
+          <span class="etym-plus">+</span>
+          <div class="kanji-card">
+            <span class="kanji-glyph">助</span>
+            <div class="kanji-meta">
+              <div class="kanji-rom">jo</div>
+              <div class="kanji-def">to help · to assist<br>to lend strength</div>
+              <div class="kanji-sub">reinforcing, not replacing effort</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="def-full">
+          <em>Rescue.</em> The word Japan uses for search and rescue,
+          emergency response, and lifesaving intervention —
+          someone in real need, and someone else showing up
+          with skill and intention to pull them through.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
